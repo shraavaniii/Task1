@@ -1,8 +1,8 @@
-**COMPANY**: CODTECH IT SOLUTIONS
-**NAME**: SHRAVANI ACHAL HENDRE
-**INTERN ID**: CT08DTU
-**DOMAIN**: CYBERSECURITY AND ETHICAL HACKING
-**BATCH DURATION**: 25th Dec to 25th Jan
+**COMPANY**: CODTECH IT SOLUTIONS  
+**NAME**: SHRAVANI ACHAL HENDRE  
+**INTERN ID**: CT08DTU  
+**DOMAIN**: CYBERSECURITY AND ETHICAL HACKING  
+**BATCH DURATION**: 25th Dec to 25th Jan  
 **MENTOR NAME**: NEELA SANTOSH
 
 **Overview of the Project:**
@@ -24,7 +24,7 @@ It checks for the following conditions:
 - File Changed: If the current hash of a file differs from the recorded hash, it is flagged as modified.
 - New File Detected: If a new file appears in the directory, it is flagged as a new addition. If no changes are detected, a message is shown indicating the files are intact.
 
-Command-Line Interaction:
+Command-Line Interaction:  
 The program provides two main actions through user input:
 1. Create Hash Records: Used to generate or update the hash record for all files in the monitored directory.
 2. Check File Integrity: Used to compare current files with the recorded hashes and report any discrepancies.
@@ -40,5 +40,5 @@ Example Usage:
 - Check Integrity:
 - Run the tool with action "2" to verify the integrity of files by comparing their current hashes to the ones stored in the JSON record.
 
-Use Case:
+Use Case:  
 Ideal for security monitoring, backup validation, and ensuring that important files have not been tampered with.
