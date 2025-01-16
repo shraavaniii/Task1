@@ -5,7 +5,7 @@
 **BATCH DURATION**: 25th Dec to 25th Jan  
 **MENTOR NAME**: NEELA SANTOSH
 
-**Overview of the Project:**
+**OVERVIEW OF THE PROJECT:**
 The tool performs the following tasks:
 
 1. Hash Calculation:  
