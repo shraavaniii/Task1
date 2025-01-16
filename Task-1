@@ -1,0 +1,71 @@
+import os       
+import hashlib
+import json
+
+# Function to calculate the hash of a file
+def calculate_file_hash(file_path, hash_algorithm="sha256"):
+    hasher = hashlib.new(hash_algorithm)
+    with open(file_path, "rb") as f:
+        while chunk := f.read(8192):  # Read file in chunks of 8192 bytes
+            hasher.update(chunk)
+    return hasher.hexdigest()
+
+# Function to create or update the hash record
+def create_hash_record(directory, output_file="file_hashes.json", hash_algorithm="sha256"):
+    file_hashes = {}
+    for root, _, files in os.walk(directory):
+        for file in files:
+            file_path = os.path.join(root, file)
+            file_hashes[file_path] = calculate_file_hash(file_path, hash_algorithm)
+    
+    with open(output_file, "w") as f:
+        json.dump(file_hashes, f, indent=4)
+    print(f"Hash record saved to {output_file}.")
+
+# Function to check file integrity
+def check_file_integrity(hash_file="file_hashes.json", hash_algorithm="sha256"):
+    if not os.path.exists(hash_file):
+        print(f"Hash file {hash_file} not found.")
+        return
+
+    with open(hash_file, "r") as f:
+        recorded_hashes = json.load(f)
+
+    current_hashes = {}
+    for file_path in recorded_hashes.keys():
+        if os.path.exists(file_path):
+            current_hashes[file_path] = calculate_file_hash(file_path, hash_algorithm)
+        else:
+            print(f"File missing: {file_path}")
+
+    changes_detected = False
+    for file_path, old_hash in recorded_hashes.items():
+        new_hash = current_hashes.get(file_path)
+        if new_hash is None:
+            print(f"File removed: {file_path}")
+            changes_detected = True
+        elif old_hash != new_hash:
+            print(f"File changed: {file_path}")
+            changes_detected = True
+
+    for file_path in current_hashes.keys():
+        if file_path not in recorded_hashes:
+            print(f"New file detected: {file_path}")
+            changes_detected = True
+
+    if not changes_detected:
+        print("No changes detected.")
+
+# Main program
+if __name__ == "__main__":
+    
+    directory_to_monitor = "C:\\Users\\Shravani\\OneDrive\\Pictures\\ドキュメント\\MyFolder"  
+    action = input("Enter action: ") # Set "1" for creating hash records 
+                  # Set "2" for checking file integrity
+
+    if action == "1":
+        create_hash_record(directory_to_monitor)
+    elif action == "2":
+        check_file_integrity()
+    else:
+        print("Invalid action.")
